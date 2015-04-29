@@ -10,10 +10,17 @@ This is a learning project base on [Hello Samza](http://samza.apache.org/startup
 
 ### Step
 
-1. Feed Raw Data
-```bin/feed-marmot.sh```
-2. Report Aggregation
-```bin/report-marmot.sh```
+1.Feed Raw Data
+
+```
+bin/feed-marmot.sh
+```
+
+2.Report Aggregation
+
+```
+bin/report-marmot.sh
+```
 
 ### Dependency Version
 
