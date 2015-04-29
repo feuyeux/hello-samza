@@ -1,0 +1,24 @@
+# Job
+job.factory.class=org.apache.samza.job.yarn.YarnJobFactory
+job.name=marmot-feed
+
+# YARN
+yarn.package.path=file://${basedir}/target/${project.artifactId}-${pom.version}-dist.tar.gz
+
+# Task
+task.class=samza.marmot.task.MarmotFeedStreamTask
+task.inputs=marmot.marmot-test
+
+# Serializers
+serializers.registry.json.class=org.apache.samza.serializers.JsonSerdeFactory
+
+# Marmot System
+systems.marmot.samza.factory=samza.marmot.system.MarmotSystemFactory
+
+# Kafka System
+systems.kafka.samza.factory=org.apache.samza.system.kafka.KafkaSystemFactory
+systems.kafka.samza.msg.serde=json
+systems.kafka.consumer.zookeeper.connect=localhost:2181/
+systems.kafka.producer.bootstrap.servers=localhost:9092
+
+task.opts=-agentlib:jdwp=transport=dt_socket,address=localhost:9009,server=y,suspend=y
