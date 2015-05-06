@@ -1,0 +1,7 @@
+d exec -ti kafka1 bash
+
+/kafka/bin/kafka-topics.sh --create --zookeeper zoo1:2181,zoo2:2181,zoo3:2181,zoo4:2181,zoo5:2181 --replication-factor 3 --partitions 1 --topic ktalk
+
+/kafka/bin/kafka-topics.sh --list --zookeeper zoo1:2181,zoo2:2181,zoo3:2181,zoo4:2181,zoo5:2181
+
+/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic ktalk

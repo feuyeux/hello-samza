@@ -9,3 +9,4 @@ deploy/samza/bin/run-job.sh \
 
 deploy/kafka/bin/kafka-console-consumer.sh \
 --zookeeper localhost:2181 --topic marmot-raw
+#--zookeeper docker.alibaba.net:42181,docker.alibaba.net:42182,docker.alibaba.net:42183,docker.alibaba.net:42184,docker.alibaba.net:42185 --topic marmot-raw
