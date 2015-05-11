@@ -8,7 +8,7 @@ This is a learning project base on [Hello Samza](http://samza.apache.org/startup
 - To access [dev list](http://samza.apache.org/community/mailing-lists.html).
 - To access [Samza JIRA](https://issues.apache.org/jira/browse/SAMZA).
 
-### Local Running Step
+## Local Running Step
 
 1.Feed Raw Data
 
@@ -21,8 +21,11 @@ bin/feed-marmot.sh
 ```
 bin/report-marmot.sh
 ```
-
-### Dependency Version
+3.Close all
+```
+bin/done.sh
+```
+## Dependency Version
 
 |Software|Version|
 |:--|:--|
@@ -32,11 +35,13 @@ bin/report-marmot.sh
 |Zookeeper|3.4.6|
 |Java|1.8|
 
-### Cluster Running Step
+## Cluster Running Step
 0. [zookeeper cluster](doc/1.zk.md)
 0. [kafka cluster](2.kafka.md)
 0. [yarn cluster](3.yarn.md)
 0. [samza deploy/run/test](4.samza.md)
+
+![samza_ha.png](doc/img/samza_ha.png)
 
 #### yarn cluster
 |Server|jps|
