@@ -21,6 +21,12 @@ bin/feed-marmot.sh
 ```
 bin/report-marmot.sh
 ```
+
+|RM|NM|
+|:--|:--|
+|[Nodes of the cluster http://localhost:8088](http://localhost:8088)|[Nodes Information http://10.18.212.212:8042](http://10.18.212.212:8042)|
+|![local_rm.png](doc/img/local_rm.png)|![local_nm.png](doc/img/local_nm.png)|
+
 3.Close all
 ```
 bin/done.sh
