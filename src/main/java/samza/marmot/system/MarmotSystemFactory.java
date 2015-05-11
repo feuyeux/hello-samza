@@ -33,10 +33,6 @@ import org.apache.samza.util.SinglePartitionWithoutOffsetsSystemAdmin;
  */
 public class MarmotSystemFactory implements SystemFactory {
 
-    public MarmotSystemFactory() {
-        System.out.println("start factory");
-    }
-
     @Override
     public SystemAdmin getAdmin(String systemName, Config config) {
         return new SinglePartitionWithoutOffsetsSystemAdmin();

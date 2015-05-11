@@ -17,13 +17,14 @@ import java.util.Map;
  * Date:   15/4/29
  */
 public class MarmotReportStreamTask implements StreamTask, WindowableTask {
-    private Map<String, Integer> counts = new HashMap<>();
-    private Map<String, Long> times = new HashMap<>();
+    private final Map<String, Integer> counts = new HashMap<>();
+    private final Map<String, Long> times = new HashMap<>();
     private String user0;
     private Long minimum = Long.MAX_VALUE;
 
     @Override
     public void process(IncomingMessageEnvelope envelope, MessageCollector collector, TaskCoordinator coordinator) {
+        @SuppressWarnings("unchecked")
         Map<String, Object> jsonObject = (Map<String, Object>) envelope.getMessage();
         MarmotEvent event = new MarmotEvent(jsonObject);
         try {

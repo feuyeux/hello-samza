@@ -18,6 +18,7 @@
  */
 package samza.marmot.system;
 
+import org.apache.log4j.Logger;
 import org.apache.samza.Partition;
 import org.apache.samza.system.IncomingMessageEnvelope;
 import org.apache.samza.system.SystemStreamPartition;
@@ -28,29 +29,31 @@ import samza.marmot.domain.MarmotEvent;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Author: Eric Han
  * Date:   15/4/29
  */
-public class MarmotFeedConsumer extends BlockingEnvelopeMap {
+class MarmotFeedConsumer extends BlockingEnvelopeMap {
+    private Logger log = Logger.getLogger(MarmotFeedConsumer.class);
     private final String systemName;
     private final String channel;
     private ExecutorService executorService;
-    private AtomicInteger num = new AtomicInteger();
-    volatile boolean going = true;
+    private final AtomicInteger num = new AtomicInteger();
+    private volatile boolean going = true;
 
     public MarmotFeedConsumer(String systemName, String channel) {
         this.systemName = systemName;
         this.channel = channel;
     }
 
-    public void onEvent(final MarmotEvent event) {
+    private void onEvent(final MarmotEvent event) {
         SystemStreamPartition partition = new SystemStreamPartition(systemName, channel, new Partition(0));
         try {
             IncomingMessageEnvelope incoming = new IncomingMessageEnvelope(partition, null, null, event);
             put(partition, incoming);
         } catch (Exception e) {
-            System.err.println(e);
+            log.error("Put feed message to kafka error", e);
         }
     }
 
@@ -58,29 +61,25 @@ public class MarmotFeedConsumer extends BlockingEnvelopeMap {
     public void register(SystemStreamPartition partition, String startingOffset) {
         super.register(partition, startingOffset);
         String channel = partition.getStream();
-        System.out.println(channel);
+        log.info(channel);
     }
 
     @Override
     public void start() {
         executorService = Executors.newFixedThreadPool(2);
-        executorService.execute(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        while (going) {
-                            long time = System.currentTimeMillis();
-                            String rawEvent = MockData.getData() + "," + time;
-                            onEvent(new MarmotEvent(num.incrementAndGet(), time, rawEvent));
-                            try {
-                                Thread.sleep(10_000);
-                            } catch (InterruptedException e) {
-                                System.err.println(e);
-                            }
-                        }
-                    }
+        executorService.execute(() -> {
+            int n = 0;
+            while (going) {
+                long time = System.currentTimeMillis();
+                String rawEvent = MockData.getData() + "," + time;
+                onEvent(new MarmotEvent(num.incrementAndGet(), time, rawEvent));
+                try {
+                    Thread.sleep(1_000 + n++);
+                } catch (InterruptedException e) {
+                    log.error("Consumption Thread Crushed", e);
                 }
-        );
+            }
+        });
     }
 
     @Override

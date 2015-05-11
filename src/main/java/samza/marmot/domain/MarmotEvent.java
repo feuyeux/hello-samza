@@ -91,17 +91,8 @@ public class MarmotEvent {
 
     public static String toJson(MarmotEvent event) {
         Map<String, Object> jsonObject = toMap(event);
-
         try {
             return jsonMapper.writeValueAsString(jsonObject);
-        } catch (Exception e) {
-            throw new SamzaException(e);
-        }
-    }
-
-    public static MarmotEvent fromJson(String json) {
-        try {
-            return new MarmotEvent((Map<String, Object>) jsonMapper.readValue(json, Map.class));
         } catch (Exception e) {
             throw new SamzaException(e);
         }
