@@ -16,11 +16,15 @@ This is a learning project base on [Hello Samza](http://samza.apache.org/startup
 bin/feed-marmot.sh
 ```
 
+![](doc/img/feed-demo.png)
+
 2.Report Aggregation
 
 ```
 bin/report-marmot.sh
 ```
+
+![](doc/img/report-demo.png)
 
 |RM|NM|
 |:--|:--|
@@ -43,9 +47,9 @@ bin/done.sh
 
 ## Cluster Running Step
 0. [zookeeper cluster](doc/1.zk.md)
-0. [kafka cluster](2.kafka.md)
-0. [yarn cluster](3.yarn.md)
-0. [samza deploy/run/test](4.samza.md)
+0. [kafka cluster](doc/2.kafka.md)
+0. [yarn cluster](doc/3.yarn.md)
+0. [samza deploy/run/test](doc/4.samza.md)
 
 ![samza_ha.png](doc/img/samza_ha.png)
 
