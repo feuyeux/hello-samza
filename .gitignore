@@ -1,6 +1,8 @@
+target/
+deploy/
+*.log
 *.war
 *.ear
-target/
 .classpath
 .project
 .vagrant
@@ -11,6 +13,4 @@ target/
 *.ipr
 *.iws
 */.cache
-deploy
 *.swp
-*.log

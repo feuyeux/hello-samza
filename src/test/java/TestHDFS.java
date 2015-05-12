@@ -17,7 +17,7 @@ public class TestHDFS {
     public static void main(String[] args) {
         try {
             Configuration conf = new Configuration();
-            FileSystem fs = FileSystem.get(new URI("hdfs://100.69.198.109:8020/"), conf);
+            FileSystem fs = FileSystem.get(new URI("hdfs://yarn1.alibaba.net:8020/"), conf);
             Path file = new Path("/user/lu.hl/README.md");
             FSDataInputStream getIt = fs.open(file);
             BufferedReader d = new BufferedReader(new InputStreamReader(getIt));
