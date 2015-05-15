@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+cd ../hello-samza
 echo "Start marmot report Job:"
 deploy/samza/bin/run-job.sh \
 --config-factory=org.apache.samza.config.factories.PropertiesConfigFactory \

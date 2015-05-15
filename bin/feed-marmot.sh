@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-cd /Users/erichan/sourcecode/feuyeux/hello-samza
+cd ../hello-samza
 mvn clean package -DskipTests
 bin/grid bootstrap
+export HADOOP_HOME=$PWD/deploy/yarn
 mkdir -p deploy/samza
 tar -xvf target/marmot-samza-0.1-dist.tar.gz -C deploy/samza
 echo "Start marmot feed Job:"

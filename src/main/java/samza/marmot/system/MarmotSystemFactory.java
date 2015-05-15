@@ -19,6 +19,7 @@
 package samza.marmot.system;
 
 import com.google.common.base.Strings;
+import org.apache.log4j.Logger;
 import org.apache.samza.SamzaException;
 import org.apache.samza.config.Config;
 import org.apache.samza.metrics.MetricsRegistry;
@@ -27,11 +28,13 @@ import org.apache.samza.system.SystemConsumer;
 import org.apache.samza.system.SystemFactory;
 import org.apache.samza.system.SystemProducer;
 import org.apache.samza.util.SinglePartitionWithoutOffsetsSystemAdmin;
+
 /**
  * Author: Eric Han
  * Date:   15/4/29
  */
 public class MarmotSystemFactory implements SystemFactory {
+    private Logger log = Logger.getLogger(MarmotSystemFactory.class);
 
     @Override
     public SystemAdmin getAdmin(String systemName, Config config) {
@@ -41,6 +44,7 @@ public class MarmotSystemFactory implements SystemFactory {
     @Override
     public SystemConsumer getConsumer(String systemName, Config config, MetricsRegistry registry) {
         String inputs = config.get("task.inputs");
+        log.info("task.inputs is:" + inputs);
         if (Strings.isNullOrEmpty(inputs)) {
             return null;
         } else {

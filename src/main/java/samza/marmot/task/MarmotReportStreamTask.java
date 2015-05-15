@@ -1,5 +1,6 @@
 package samza.marmot.task;
 
+import org.apache.log4j.Logger;
 import org.apache.samza.system.IncomingMessageEnvelope;
 import org.apache.samza.system.OutgoingMessageEnvelope;
 import org.apache.samza.system.SystemStream;
@@ -17,6 +18,7 @@ import java.util.Map;
  * Date:   15/4/29
  */
 public class MarmotReportStreamTask implements StreamTask, WindowableTask {
+    private Logger log = Logger.getLogger(MarmotFeedStreamTask.class);
     private final Map<String, Integer> counts = new HashMap<>();
     private final Map<String, Long> times = new HashMap<>();
     private String user0;
@@ -26,9 +28,10 @@ public class MarmotReportStreamTask implements StreamTask, WindowableTask {
     public void process(IncomingMessageEnvelope envelope, MessageCollector collector, TaskCoordinator coordinator) {
         @SuppressWarnings("unchecked")
         Map<String, Object> jsonObject = (Map<String, Object>) envelope.getMessage();
-        MarmotEvent event = new MarmotEvent(jsonObject);
+        MarmotEvent marmotEvent = new MarmotEvent(jsonObject);
+        log.info(marmotEvent);
         try {
-            String message = event.getRawEvent();
+            String message = marmotEvent.getRawEvent();
             String[] columns = message.split(",");
             String user = columns[0];
             Long time = Long.valueOf(columns[1]);
@@ -49,7 +52,7 @@ public class MarmotReportStreamTask implements StreamTask, WindowableTask {
             }
             times.put(user, time);
         } catch (Exception e) {
-            System.err.println("Unable to parse line: " + event);
+            log.error("Unable to parse line: " + marmotEvent);
         }
     }
 

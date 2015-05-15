@@ -50,6 +50,7 @@ class MarmotFeedConsumer extends BlockingEnvelopeMap {
     private void onEvent(final MarmotEvent event) {
         SystemStreamPartition partition = new SystemStreamPartition(systemName, channel, new Partition(0));
         try {
+            log.info(event);
             IncomingMessageEnvelope incoming = new IncomingMessageEnvelope(partition, null, null, event);
             put(partition, incoming);
         } catch (Exception e) {

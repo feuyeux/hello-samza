@@ -4,6 +4,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -14,6 +15,7 @@ import java.net.URI;
  * Date:   15/5/10
  */
 public class TestHDFS {
+    private static Logger log = Logger.getLogger(TestHDFS.class);
     public static void main(String[] args) {
         try {
             Configuration conf = new Configuration();
@@ -23,7 +25,7 @@ public class TestHDFS {
             BufferedReader d = new BufferedReader(new InputStreamReader(getIt));
             String s;
             while ((s = d.readLine()) != null) {
-                System.out.println(s);
+                log.info(s);
             }
             d.close();
             fs.close();
